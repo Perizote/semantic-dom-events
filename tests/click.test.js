@@ -1,25 +1,28 @@
-import { getByText, getByLabelText } from '@testing-library/dom'
+import { getByText, getByLabelText, getByTestId } from '@testing-library/dom'
 import { mount } from './mount'
 import { userInteraction } from '../src'
 
 const Form = container => {
   container.innerHTML = `
-    <form>
+    <form data-testid="address-form">
       <label for="address">Address</label>
       <input name="address" id="address" type="text" />
       <button type="submit">Send</button>
     </form>
     <p>Last address saved: none</p>
     <span>Last MouseEvent: none<span>
+    <button type="button">Button outside a form</button>
   `
 
   const form = container.querySelector('form')
-  const button = container.querySelector('button')
+  const submitButton = container.querySelector('button[type="submit"]')
+  const buttonOutside = container.querySelector('button[type="button"]')
   const feedback = container.querySelector('p')
   const lastEvent = container.querySelector('span')
 
   form.addEventListener('submit', onSubmit)
-  button.addEventListener('click', onClick)
+  submitButton.addEventListener('click', onClick)
+  buttonOutside.addEventListener('click', onClick)
 
   function onSubmit(event) {
     event.preventDefault()
@@ -63,5 +66,15 @@ it('should not submit the form when the button is not of type submit', () => {
   userInteraction.click(sendButton)
 
   expect(container).toHaveTextContent('Last address saved: none')
+  document.body.removeChild(container)
+})
+
+it('should not try to update the form values when the button is not wrapped by a form', () => {
+  const container = mount(Form)
+
+  userInteraction.click(getByText(container, 'Button outside a form'))
+
+  expect(container).toHaveTextContent('Last MouseEvent: click')
+  expect(getByTestId(container, 'address-form')).toHaveFormValues({ address: '' })
   document.body.removeChild(container)
 })
