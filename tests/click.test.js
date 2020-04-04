@@ -107,3 +107,19 @@ it('should not update the form with the submit button value when submitting a fo
 
   expect(form.submitbutton).not.toBeDefined()
 })
+
+it('should update the form values when it has more than one form control', () => {
+  const container = mount(Form)
+  const form = getByTestId(container, 'address-form')
+  const zipCodeInput = document.createElement('input')
+  zipCodeInput.type = 'number'
+  zipCodeInput.name = 'zipcode'
+  form.appendChild(zipCodeInput)
+  expect(container).toHaveTextContent('Last address saved: none')
+
+  userInteraction.type('Rodrigo de Pertegas').in(getByLabelText(container, 'Address'))
+  userInteraction.type(46023).in(zipCodeInput)
+  userInteraction.click(getByText(container, 'Send'))
+
+  expect(form).toHaveFormValues({ address: 'Rodrigo de Pertegas', zipcode: 46023 })
+})
