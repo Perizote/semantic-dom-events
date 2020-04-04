@@ -1,5 +1,5 @@
 import { getByLabelText } from '@testing-library/dom'
-import { mount } from './mount'
+import { mount, unmount } from './mount'
 import { userInteraction } from '../src'
 
 const Form = container => {
@@ -20,6 +20,8 @@ const Form = container => {
 
   return container
 }
+
+afterEach(unmount)
 
 it('should fire change event when typing', () => {
   const container = mount(Form)

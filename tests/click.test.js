@@ -1,5 +1,5 @@
 import { getByText, getByLabelText, getByTestId } from '@testing-library/dom'
-import { mount } from './mount'
+import { mount, unmount } from './mount'
 import { userInteraction } from '../src'
 
 const Form = container => {
@@ -36,6 +36,8 @@ const Form = container => {
   return container
 }
 
+afterEach(unmount)
+
 it('should submit the form', () => {
   const container = mount(Form)
   expect(container).toHaveTextContent('Last address saved: none')
@@ -44,7 +46,6 @@ it('should submit the form', () => {
   userInteraction.click(getByText(container, 'Send'))
 
   expect(container).toHaveTextContent('Last address saved: Rodrigo de Pertegas')
-  document.body.removeChild(container)
 })
 
 it('should fire click event when button listens to clicks', () => {
@@ -54,7 +55,6 @@ it('should fire click event when button listens to clicks', () => {
   userInteraction.click(getByText(container, 'Send'))
 
   expect(container).toHaveTextContent('Last MouseEvent: click')
-  document.body.removeChild(container)
 })
 
 it('should not submit the form when the button is not of type submit', () => {
@@ -66,7 +66,6 @@ it('should not submit the form when the button is not of type submit', () => {
   userInteraction.click(sendButton)
 
   expect(container).toHaveTextContent('Last address saved: none')
-  document.body.removeChild(container)
 })
 
 it('should not try to update the form values when the button is not wrapped by a form', () => {
@@ -76,7 +75,6 @@ it('should not try to update the form values when the button is not wrapped by a
 
   expect(container).toHaveTextContent('Last MouseEvent: click')
   expect(getByTestId(container, 'address-form')).toHaveFormValues({ address: '' })
-  document.body.removeChild(container)
 })
 
 it('should not update the form with the submit button value when submitting a form', () => {
@@ -92,5 +90,4 @@ it('should not update the form with the submit button value when submitting a fo
   userInteraction.click(sendButton)
 
   expect(form.submitbutton).not.toBeDefined()
-  document.body.removeChild(container)
 })
