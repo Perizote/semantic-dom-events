@@ -1,0 +1,6 @@
+{
+  "rootDir": "..",
+  "setupFilesAfterEnv": ["<rootDir>/config/jest.setup.js"],
+  "testMatch": [ "<rootDir>/**/?(*.)(test).js" ],
+  "moduleFileExtensions": ["js", "json"]
+}

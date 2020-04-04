@@ -1,0 +1,35 @@
+{
+  "name": "jest-starter",
+  "version": "1.0.0",
+  "description": "starter project on vanilla JS template, with Jest tests",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest --ci --coverage --config config/jest.config.json",
+    "test:watch": "jest --watchAll --config config/jest.config.json"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/preset-react": "^7.0.0",
+    "@testing-library/jest-dom": "^4.2.0",
+    "@testing-library/react": "^9.3.0",
+    "jest": "24.8.0",
+    "babel-jest": "^24.8.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "keywords": [],
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime",
+      "@babel/proposal-class-properties"
+    ]
+  }
+}
