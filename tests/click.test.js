@@ -38,7 +38,16 @@ const Form = container => {
 
 afterEach(unmount)
 
-it('should submit the form', () => {
+it('should fire click event when button listens to clicks', () => {
+  const container = mount(Form)
+  expect(container).toHaveTextContent('Last MouseEvent: none')
+
+  userInteraction.click(getByText(container, 'Send'))
+
+  expect(container).toHaveTextContent('Last MouseEvent: click')
+})
+
+it('should submit the form by clicking the submit button', () => {
   const container = mount(Form)
   expect(container).toHaveTextContent('Last address saved: none')
 
@@ -48,13 +57,20 @@ it('should submit the form', () => {
   expect(container).toHaveTextContent('Last address saved: Rodrigo de Pertegas')
 })
 
-it('should fire click event when button listens to clicks', () => {
+it('should submit the form by clicking the submit input', () => {
   const container = mount(Form)
-  expect(container).toHaveTextContent('Last MouseEvent: none')
+  const form = getByTestId(container, 'address-form')
+  form.removeChild(getByText(container, 'Send'))
+  const sendButton = document.createElement('input')
+  sendButton.type = 'submit'
+  sendButton.value = 'Send'
+  form.appendChild(sendButton)
+  expect(container).toHaveTextContent('Last address saved: none')
 
-  userInteraction.click(getByText(container, 'Send'))
+  userInteraction.type('Rodrigo de Pertegas').in(getByLabelText(container, 'Address'))
+  userInteraction.click(sendButton)
 
-  expect(container).toHaveTextContent('Last MouseEvent: click')
+  expect(container).toHaveTextContent('Last address saved: Rodrigo de Pertegas')
 })
 
 it('should not submit the form when the button is not of type submit', () => {

@@ -3,7 +3,7 @@ TODO
 [] - Submit shouldn't trigger form's `onChange`
 [] - Input's changes shouldn't re-trigger `onChange` when using `react`
 [] - Handle errors
-[] - Submit should keep working no matter the HTML element (`button`, `input`, etc)
+[x] - Submit should keep working no matter the HTML element (`button`, `input`, etc)
 [] - Form should have updated values after submitting no matter the number of form controls it has
 [x] - Form shouldn't have values of its buttons
 [x] - Submit should be part of the `click` event when the button is `type="submit"` and it is inside a `form`
