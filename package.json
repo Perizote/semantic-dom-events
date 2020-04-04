@@ -1,7 +1,7 @@
 {
   "name": "semantic-dom-events",
   "version": "0.0.1",
-  "description": "Trigger browser events with a more user perspective and semantic",
+  "description": "Trigger browser events with a more user perspective while having semantic in mind4",
   "main": "index.js",
   "scripts": {
     "test": "jest --ci --coverage --config config/jest.config.json",

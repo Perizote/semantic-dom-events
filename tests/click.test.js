@@ -53,3 +53,15 @@ it('should fire click event when button listens to clicks', () => {
   expect(container).toHaveTextContent('Last MouseEvent: click')
   document.body.removeChild(container)
 })
+
+it('should not submit the form when the button is not of type submit', () => {
+  const container = mount(Form)
+  const sendButton = getByText(container, 'Send')
+  sendButton.setAttribute('type', 'button')
+
+  userInteraction.type('Rodrigo de Pertegas').in(getByLabelText(container, 'Address'))
+  userInteraction.click(sendButton)
+
+  expect(container).toHaveTextContent('Last address saved: none')
+  document.body.removeChild(container)
+})
