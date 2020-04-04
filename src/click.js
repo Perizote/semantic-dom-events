@@ -11,9 +11,12 @@ const click = element => {
 const updateFormBeforeSubmitting = form => {
   const formValues = Object
     .values(form.elements)
+    .filter(isFormControl)
     .reduce((values, { name, value }) => ({ ...values, [name]: { value } }), {})
 
   Object.assign(form, formValues)
 }
+
+const isFormControl = ({ type }) => type != 'submit'
 
 export { click }

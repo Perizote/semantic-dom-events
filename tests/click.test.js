@@ -78,3 +78,19 @@ it('should not try to update the form values when the button is not wrapped by a
   expect(getByTestId(container, 'address-form')).toHaveFormValues({ address: '' })
   document.body.removeChild(container)
 })
+
+it('should not update the form with the submit button value when submitting a form', () => {
+  const container = mount(Form)
+  const form = getByTestId(container, 'address-form')
+  form.removeChild(getByText(container, 'Send'))
+  const sendButton = document.createElement('input')
+  sendButton.type = 'submit'
+  sendButton.value = 'Send'
+  sendButton.name = 'submitbutton'
+  form.appendChild(sendButton)
+
+  userInteraction.click(sendButton)
+
+  expect(form.submitbutton).not.toBeDefined()
+  document.body.removeChild(container)
+})

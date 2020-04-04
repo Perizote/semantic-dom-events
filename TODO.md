@@ -5,8 +5,8 @@ TODO
 [] - Handle errors
 [] - Submit should keep working no matter the HTML element (`button`, `input`, etc)
 [] - Form should have updated values after submitting no matter the number of form controls it has
-[] - Form shouldn't have values of its buttons
-[] - Submit should be part of the `click` event when the button is `type="submit"` and it is inside a `form`
+[x] - Form shouldn't have values of its buttons
+[x] - Submit should be part of the `click` event when the button is `type="submit"` and it is inside a `form`
 [] - `type()` should work for every browser event (`keypress`, `keydown`, `keyup`, `input`, `change`, etc)
 [] - `type()` should work in `textarea` HTML elements too
 [] - `type()` shouldn't work in `select `
