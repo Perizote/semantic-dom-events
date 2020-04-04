@@ -1,8 +1,8 @@
 {
-  "name": "jest-starter",
-  "version": "1.0.0",
-  "description": "starter project on vanilla JS template, with Jest tests",
-  "main": "index.html",
+  "name": "semantic-dom-events",
+  "version": "0.0.1",
+  "description": "Trigger browser events with a more user perspective and semantic",
+  "main": "index.js",
   "scripts": {
     "test": "jest --ci --coverage --config config/jest.config.json",
     "test:watch": "jest --watchAll --config config/jest.config.json"
@@ -21,7 +21,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
-  "keywords": [],
+  "keywords": ["dom", "js", "browser", "node", "integration", "event", "test", "semantic", "user"],
   "babel": {
     "presets": [
       "@babel/env",
