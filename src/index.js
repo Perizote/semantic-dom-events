@@ -1,4 +1,6 @@
 import { type } from './type'
-import { submit } from './submit'
+import { click } from './click'
 
-export { type, submit }
+const userInteraction = { type, click }
+
+export { userInteraction }

@@ -1,6 +1,6 @@
 import { getByLabelText } from '@testing-library/dom'
 import { mount } from './mount'
-import { type } from '../src'
+import { userInteraction } from '../src'
 
 const Form = container => {
   container.innerHTML = `
@@ -12,8 +12,6 @@ const Form = container => {
   `
 
   const input = container.querySelector('input')
-  const feedback = container.querySelector('p')
-
   input.addEventListener('change', onChange)
 
   function onChange(event) {
@@ -27,7 +25,7 @@ it('should fire change event when typing', () => {
   const container = mount(Form)
 
   const input = getByLabelText(container, 'Address')
-  type('Rodrigo de Pertegas').in(input)
+  userInteraction.type('Rodrigo de Pertegas').in(input)
 
   expect(input.value).toBe('RODRIGO DE PERTEGAS')
 })
