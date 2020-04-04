@@ -123,3 +123,18 @@ it('should update the form values when it has more than one form control', () =>
 
   expect(form).toHaveFormValues({ address: 'Rodrigo de Pertegas', zipcode: 46023 })
 })
+
+it('should update the form values by the form controls id attribute if name is not present', () => {
+  const container = mount(Form)
+  expect(container).toHaveTextContent('Last address saved: none')
+  const addressInput = getByLabelText(container, 'Address')
+  addressInput.removeAttribute('name')
+  addressInput.setAttribute('id', 'address')
+
+  userInteraction.type('Rodrigo de Pertegas').in(addressInput)
+  userInteraction.click(getByText(container, 'Send'))
+
+  expect(addressInput.name).toBe('')
+  expect(addressInput.id).toBe('address')
+  expect(container).toHaveTextContent('Last address saved: Rodrigo de Pertegas')
+})
