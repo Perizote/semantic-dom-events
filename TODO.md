@@ -15,3 +15,8 @@ TODO
 [] - `type()` shouldn't work in `input disabled `
 [x] - Improve public API semantic
 [] - Cover most commonly used events
+[] - Add build script
+[] - Add CI/CD
+[] - Add a `README`
+[] - Add examples and docs
+[] - Generate typings
