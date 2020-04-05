@@ -26,6 +26,7 @@ const Form = container => {
 
   function onSubmit(event) {
     event.preventDefault()
+    if (!event.target.address) { return }
     feedback.textContent = `Last address saved: ${ event.target.address.value }`
   }
 
@@ -129,7 +130,6 @@ it('should update the form values by the form controls id attribute if name is n
   expect(container).toHaveTextContent('Last address saved: none')
   const addressInput = getByLabelText(container, 'Address')
   addressInput.removeAttribute('name')
-  addressInput.setAttribute('id', 'address')
 
   userInteraction.type('Rodrigo de Pertegas').in(addressInput)
   userInteraction.click(getByText(container, 'Send'))
@@ -137,4 +137,19 @@ it('should update the form values by the form controls id attribute if name is n
   expect(addressInput.name).toBe('')
   expect(addressInput.id).toBe('address')
   expect(container).toHaveTextContent('Last address saved: Rodrigo de Pertegas')
+})
+
+it('should not update the form values when form control does not have id or name', () => {
+  const container = mount(Form)
+  const addressInput = getByLabelText(container, 'Address')
+  addressInput.removeAttribute('name')
+  addressInput.removeAttribute('id')
+
+  userInteraction.type('Rodrigo de Pertegas').in(addressInput)
+  userInteraction.click(getByText(container, 'Send'))
+
+  expect(addressInput.name).toBe('')
+  expect(addressInput.id).toBe('')
+  expect(getByTestId(container, 'address-form')).toHaveFormValues({})
+  expect(getByTestId(container, 'address-form')['']).not.toBeDefined()
 })

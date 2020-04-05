@@ -11,18 +11,23 @@ const click = element => {
 const updateFormBeforeSubmitting = form => {
   const formValues = Object
     .values(form.elements)
-    .filter(isFormControl)
-    .reduce((values, { name, id, value }) => {
-      return {
-        ...values,
-        [getFormControlKey(name, id)]: { value },
-      }
-    }, {})
+    .filter(isFormControlWithProperAttributes)
+    .reduce((values, { name, id, value }) => ({
+      ...values,
+      [getFormControlKey(name, id)]: { value },
+    }), {})
 
   Object.assign(form, formValues)
 }
 
-const isFormControl = ({ type }) => type != 'submit'
+const isFormControlWithProperAttributes = ({ type, id, name }) => {
+  const isFormControl = type != 'submit'
+  const hasId = id && id.length > 0
+  const hasName = name && name.length > 0
+  const hasProperAttributes = hasId || hasName
+
+  return isFormControl && hasProperAttributes
+}
 
 const getFormControlKey = (name, id) => {
   const hasName = name && name.length > 0
